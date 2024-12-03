@@ -128,17 +128,6 @@ Future Plans
     🧠 Enhanced AI Integration: Smarter suggestions and code completions.
     📊 Analytics: Insightful stats about your filesystem usage.
 
-Emoji Legend
-
-    📁 File Management
-    📝 Code Editing
-    🕰️ Version Control
-    🔍 Search
-    🛠️ Syntax Validation
-    🤖 AI Integration
-    🚀 Future Plans
-    🐇 Easter Eggs
-    🌟 Customization
 
 Enjoy using IntelliFS! May your files be ever organized and your code ever flawless! ✨
 Additional Notes
