@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Directory constants
-const BACKUP_DIR = "E:\\BACKUP\\DIRECTORY";
+const BACKUP_DIR = "E:\\Artificial Intelligence\\MCP\\file_change_backups";
 const TEMP_DIR = path.join(BACKUP_DIR, "temp");
 
 // Get allowed directories from command line arguments
@@ -26,8 +26,11 @@ const ALLOWED_DIRS = process.argv.slice(2).map(dir => path.resolve(dir));
 
 // Directory descriptions
 const DIRECTORY_DESCRIPTIONS = {
-    "E:\\DIRECTORY\\DESCRIPTIONS": "Descriptions give the AI immediate context into the contentx of the folders.",
-    "E:\\DIRECTORY\\DESCRIPTIONS2": "Descriptions give the AI immediate context into the contentx of the folders."
+    "E:\\Artificial Intelligence\\MCP": "Main MCP development directory",
+    "C:\\Users\\sheit\\AppData\\Roaming\\Claude": "Claude configuration directory",
+    "C:\\Users\\sheit\\AppData\\Roaming\\Claude\\logs": "Claude log files",
+    "E:\\ai": "AI projects directory",
+    "C:\\Users\\sheit\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol": "Model Context Protocol Node Modules"
 };
 
 // Temporary file storage
@@ -357,13 +360,28 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                     throw new Error("Invalid path. Please provide a valid file path within the allowed directories.");
                 }
 
-                const content = await fs.readFile(fullPath, "utf-8");
+                // Check for pending changes
+                const tempFileName = path.basename(filePath).replace(/\W/g, '_') + '.temp';
+                const tempPath = path.join(TEMP_DIR, tempFileName);
+                let content;
+
+                try {
+                    // If temp file exists, read from it
+                    content = await fs.readFile(tempPath, "utf-8");
+                } catch (error) {
+                    // If no temp file, read from the actual file
+                    content = await fs.readFile(fullPath, "utf-8");
+                }
+
                 const lines = content.split('\n');
                 const numberedLines = lines.map((line, index) => ({
                     lineNumber: index + 1,
                     code: line
                 }));
                 const history = await getFileHistory(fullPath);
+
+                // Indicate if content is from temp file
+                const isPending = tempFiles.has(filePath);
 
                 return {
                     content: [{
@@ -374,7 +392,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                                 version: version.version,
                                 timestamp: version.timestamp,
                                 path: version.path
-                            }))
+                            })),
+                            isPendingChanges: isPending
                         }, null, 2)
                     }]
                 };
