@@ -1,0 +1,11 @@
+{
+  "intellifs": {
+    "command": "node",
+    "args": [
+      "C:\\PATH\\TO\\YOUR\\intellifs.js",
+      "C:\\PATH\\AUTHORIZED\\DIRECTORIES",
+      "C:\\PATH\\AUTHORIZED\\DIRECTORIES2"
+    ],
+    "type": "module"
+  }
+}
