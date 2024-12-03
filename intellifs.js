@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Directory constants
-const BACKUP_DIR = "E:\\Artificial Intelligence\\MCP\\file_change_backups";
+const BACKUP_DIR = "E:\\BACKUP\\DIRECTORY";
 const TEMP_DIR = path.join(BACKUP_DIR, "temp");
 
 // Get allowed directories from command line arguments
@@ -26,11 +26,8 @@ const ALLOWED_DIRS = process.argv.slice(2).map(dir => path.resolve(dir));
 
 // Directory descriptions
 const DIRECTORY_DESCRIPTIONS = {
-    "E:\\Artificial Intelligence\\MCP": "Main MCP development directory",
-    "C:\\Users\\sheit\\AppData\\Roaming\\Claude": "Claude configuration directory",
-    "C:\\Users\\sheit\\AppData\\Roaming\\Claude\\logs": "Claude log files",
-    "E:\\ai": "AI projects directory",
-    "C:\\Users\\sheit\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol": "Model Context Protocol Node Modules"
+    "E:\\DIRECTORY\\DESCRIPTIONS": "Descriptions give the AI immediate context into the contentx of the folders.",
+    "E:\\DIRECTORY\\DESCRIPTIONS2": "Descriptions give the AI immediate context into the contentx of the folders."
 };
 
 // Temporary file storage
