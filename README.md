@@ -1,73 +1,106 @@
-IntelliFS - Intelligent Filesystem Server 🚀
+# IntelliFS 🚀
+> An intelligent filesystem server with advanced code management capabilities
 
-An intelligent, AI-powered filesystem server that does more than just manage files!
-Features
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node Version](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen)](https://nodejs.org)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-    📁 File Management: List, read, write, and modify files with ease.
-    📝 Code Editing: Stream content to files with interruption handling and resume capability.
-    🕰️ Version Control: Automatic backups and version history for all your files.
-    🔍 Search: Find files and search within file contents.
-    🛠️ Syntax Validation: Validate the syntax of your code for supported languages.
-    🤖 AI Integration: Designed to work seamlessly with AI code generation tools.
+## 🎯 Overview
 
-Getting Started
-Prerequisites
+IntelliFS extends the Model Context Protocol (MCP) with advanced filesystem capabilities designed for AI-assisted development. It provides seamless integration between AI tools and your local filesystem.
 
-    Node.js: Version 14 or higher.
-    NPM Packages: @modelcontextprotocol/sdk, ajv, glob.
+## ✨ Features
 
-Installation
+| Category | Features | Description |
+|----------|----------|-------------|
+| 📝 Code Management | Line-Based Editing<br>Syntax Validation<br>Pattern Matching | Edit specific line ranges<br>Validate Python/JavaScript syntax<br>Find and replace code patterns |
+| 🔄 Version Control | Auto-Backups<br>History Tracking<br>Point-in-Time Restore | Automatic version creation<br>Track all file changes<br>Restore previous versions |
+| 📊 Content Operations | Streaming Writes<br>Resume Capability<br>Content Search | Stream large files<br>Resume interrupted writes<br>Search file contents |
+| 🛡️ Security | Path Validation<br>Directory Control<br>Safe Operations | Prevent traversal attacks<br>Limit accessible directories<br>Safe file operations |
 
-    Clone the Repository
+## 🚀 Quick Start
 
-Installation Instructions
+### Prerequisites
 
-Prerequisites
+| Requirement | Version | Purpose |
+|-------------|---------|----------|
+| Node.js | ≥ 14.0.0 | Runtime environment |
+| Python | ≥ 3.6 | Syntax validation (optional) |
 
-    Node.js: Ensure you have Node.js installed (version 14 or higher). You can download it from Node.js Official Website.
+### Installation
 
-Installing Required NPM Packages
-
-Open your terminal or command prompt and navigate to your project directory. Then, run the following command to install the required packages:
-
+```bash
 npm install @modelcontextprotocol/sdk ajv glob
 
-copy the file intellifs.js and place it in your preferred MCP server location on your PC. Note the location
+Configuration
+<details> <summary>📋 Claude Desktop Configuration</summary>
 
-Running IntelliFS Server
-
-    Save the IntelliFS Server code above as intellifs.js in your desired directory (e.g., E:\Artificial Intelligence\MCP\servers\intellifs.js).
-
-    Update the Allowed Directories as per your needs. These are passed as command-line arguments when starting the server.
-
-    Start the Server by running:
-
-
-
-Install Dependencies
-
-npm install
-
-Configure Allowed Directories
-
-Update the ALLOWED_DIRS array in intellifs.js or pass them as command-line arguments.
-
-Run IntelliFS
-
-    node intellifs.js "path_to_allowed_directory1" "path_to_allowed_directory2"
-
-Usage Examples
-List Files
-
+json
 {
-  "command": "intellifs-list",
-  "arguments": {
-    "path": "/"
+  "intellifs": {
+    "command": "node",
+    "args": [
+      "path/to/intellifs.js",
+      "allowed/directory/1",
+      "allowed/directory/2"
+    ],
+    "type": "module"
   }
 }
 
-Read File
+</details>
+📚 Command Reference
+Core Commands
+Command	Purpose	Required Args	Optional Args
+intellifs-list	List directory contents	path	recursive
+intellifs-read	Read file with line numbers	path	-
+intellifs-stream-write	Stream content to file	path, content	isComplete, isResume, position
+intellifs-commit	Commit changes	path	-
+Advanced Commands
+Command	Purpose	Required Args	Optional Args
+intellifs-patch	Replace code sections	path, startLine, endLine, newCode	-
+intellifs-validate-syntax	Validate code syntax	path, language	-
+intellifs-search-content	Search in file contents	pattern, searchString	recursive
+intellifs-history	View file history	path	-
+intellifs-restore	Restore previous versions	path, version	-
+📝 Usage Examples
+<details> <summary>Stream Writing with Resume</summary>
 
+javascript
+// Initial Write
+{
+  "command": "intellifs-stream-write",
+  "arguments": {
+    "path": "example.js",
+    "content": "// Initial content\nfunction hello() {",
+    "isComplete": false
+  }
+}
+
+// Resume After Interruption
+{
+  "command": "intellifs-stream-write",
+  "arguments": {
+    "path": "example.js",
+    "content": "  console.log('Hello!');\n}",
+    "isResume": true,
+    "position": 42,
+    "isComplete": true
+  }
+}
+
+// Commit Changes
+{
+  "command": "intellifs-commit",
+  "arguments": {
+    "path": "example.js"
+  }
+}
+
+</details> <details> <summary>Code Patching</summary>
+
+javascript
+// Read File
 {
   "command": "intellifs-read",
   "arguments": {
@@ -75,92 +108,43 @@ Read File
   }
 }
 
-Stream Write with Interruption Handling
-
-    Start Writing
-
+// Patch Code
 {
-  "command": "intellifs-stream-write",
+  "command": "intellifs-patch",
   "arguments": {
-    "path": "new_file.js",
-    "content": "// Initial content...",
-    "isComplete": false
+    "path": "example.js",
+    "startLine": 10,
+    "endLine": 15,
+    "newCode": "// New implementation\nfunction newFeature() {\n  return 'Enhanced!';\n}"
   }
 }
 
-Resume After Interruption
+</details>
+🔒 Security Features
+Feature	Description	Configuration
+Path Validation	Prevents directory traversal attacks	Automatic
+Allowed Directories	Restricts file operations to specified paths	Via command line args
+Safe Operations	Validates all file operations	Automatic
+Version Control	Creates backups before modifications	Automatic
+🤝 Contributing
+We welcome contributions! See our Contributing Guide for details.
+Development Setup
 
-{
-  "command": "intellifs-stream-write",
-  "arguments": {
-    "path": "new_file.js",
-    "content": "// Continued content...",
-    "isResume": true,
-    "position": 150,
-    "isComplete": true
-  }
-}
+bash
+# Clone repository
+git clone https://github.com/axs-1553/IntelliFS.git
 
-Commit Changes
+# Install dependencies
+cd IntelliFS
+npm install
 
-    {
-      "command": "intellifs-commit",
-      "arguments": {
-        "path": "new_file.js"
-      }
-    }
+# Run tests
+npm test
 
-Contributors
-
-    Axs - @axs1553 on Twitter/X , axs1553 on Discord
-    Claude 3.5 Sonnet - Self-testing with Python interpreter 🐍
-    IntelliAI (that's me!) - Your friendly AI assistant 🤖
-
-License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-Acknowledgments
-
-    Special thanks to the AI community for inspiration and support.
-    Shoutout to all developers pushing the boundaries of what's possible! 🚀
-
-Installation Notes
-
-    Make sure to have Python installed if you plan to use syntax validation for Python files.
-    For JavaScript syntax validation, ensure Node.js is properly installed and configured.
-
-Make IntelliFS your own
-
-    Customization: Feel free to tweak the code to suit your needs. Contributions are welcome! 🌟
-
-Troubleshooting
-
-    Common Issues
-        Invalid Path Error: Ensure your file paths are within the allowed directories.
-        Position Mismatch: Check the position parameter when resuming writes; small discrepancies are tolerated.
-
-    Need Help?
-        Open an issue on GitHub.
-        Reach out on Twitter @axs1553.
-
-Future Plans
-
-    🌐 Web Interface: A sleek web UI for easier interaction.
-    🧠 Enhanced AI Integration: Smarter suggestions and code completions.
-    📊 Analytics: Insightful stats about your filesystem usage.
-
-
-Enjoy using IntelliFS! May your files be ever organized and your code ever flawless! ✨
-Additional Notes
-
-    NPM Package Versions
-
-    Ensure the following versions (or higher) are installed:
-        @modelcontextprotocol/sdk: ^1.0.0
-        ajv: ^8.0.0
-        glob: ^8.0.0
-
-    Node.js Version
-
-node -v
-# Should be v14.0.0 or higher
+📄 License
+MIT License - View License
+🙋‍♂️ Support
+Platform	Contact
+GitHub Issues	Report a bug
+Twitter	@axs1553
+Discord	axs1553
