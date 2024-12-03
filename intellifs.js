@@ -26,11 +26,8 @@ const ALLOWED_DIRS = process.argv.slice(2).map(dir => path.resolve(dir));
 
 // Directory descriptions
 const DIRECTORY_DESCRIPTIONS = {
-    "E:\\Artificial Intelligence\\MCP": "Main MCP development directory",
-    "C:\\Users\\sheit\\AppData\\Roaming\\Claude": "Claude configuration directory",
-    "C:\\Users\\sheit\\AppData\\Roaming\\Claude\\logs": "Claude log files",
-    "E:\\ai": "AI projects directory",
-    "C:\\Users\\sheit\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol": "Model Context Protocol Node Modules"
+    "C:\\PATH\\AUTHORIZED\\DIRECTORIES": "Description of directories for AI",
+    "C:\\PATH\\AUTHORIZED\\DIRECTORIES2": "Description of directories for AI"
 };
 
 // Temporary file storage
