@@ -49,22 +49,146 @@ json
 }
 
 </details>
-📚 Command Reference
-Core Commands
-Command	Purpose	Required Args	Optional Args
-intellifs-list	List directory contents	path	recursive
-intellifs-read	Read file with line numbers	path	-
-intellifs-stream-write	Stream content to file	path, content	isComplete, isResume, position
-intellifs-commit	Commit changes	path	-
+
+## 📚 Command Reference
+
+### Core Commands
+
+#### `intellifs-list`
+- **Purpose:** List directory contents
+- **Required:** `path`
+- **Optional:** `recursive`
+- **Example:**
+  ```json
+  {
+    "command": "intellifs-list",
+    "arguments": {
+      "path": "/my/directory"
+    }
+  }
+
+intellifs-read
+
+    Purpose: Read file with line numbers
+    Required: path
+    Example:
+
+    
+    {
+      "command": "intellifs-read",
+      "arguments": {
+        "path": "example.js"
+      }
+    }
+
+intellifs-stream-write
+
+    Purpose: Stream content to file
+    Required: path, content
+    Optional: isComplete, isResume, position
+    Example:
+
+    
+    {
+      "command": "intellifs-stream-write",
+      "arguments": {
+        "path": "example.js",
+        "content": "// Code here",
+        "isComplete": false
+      }
+    }
+
+intellifs-commit
+
+    Purpose: Commit changes
+    Required: path
+    Example:
+
+    
+    {
+      "command": "intellifs-commit",
+      "arguments": {
+        "path": "example.js"
+      }
+    }
+
 Advanced Commands
-Command	Purpose	Required Args	Optional Args
-intellifs-patch	Replace code sections	path, startLine, endLine, newCode	-
-intellifs-validate-syntax	Validate code syntax	path, language	-
-intellifs-search-content	Search in file contents	pattern, searchString	recursive
-intellifs-history	View file history	path	-
-intellifs-restore	Restore previous versions	path, version	-
-📝 Usage Examples
-<details> <summary>Stream Writing with Resume</summary>
+intellifs-patch
+
+    Purpose: Replace code sections
+    Required: path, startLine, endLine, newCode
+    Example:
+
+    
+    {
+      "command": "intellifs-patch",
+      "arguments": {
+        "path": "example.js",
+        "startLine": 10,
+        "endLine": 15,
+        "newCode": "// New code here"
+      }
+    }
+
+intellifs-validate-syntax
+
+    Purpose: Validate code syntax
+    Required: path, language
+    Example:
+
+    
+    {
+      "command": "intellifs-validate-syntax",
+      "arguments": {
+        "path": "example.js",
+        "language": "javascript"
+      }
+    }
+
+intellifs-search-content
+
+    Purpose: Search in file contents
+    Required: pattern, searchString
+    Optional: recursive
+    Example:
+
+    
+    {
+      "command": "intellifs-search-content",
+      "arguments": {
+        "pattern": "*.js",
+        "searchString": "function"
+      }
+    }
+
+intellifs-history
+
+    Purpose: View file history
+    Required: path
+    Example:
+
+    
+    {
+      "command": "intellifs-history",
+      "arguments": {
+        "path": "example.js"
+      }
+    }
+
+intellifs-restore
+
+    Purpose: Restore previous versions
+    Required: path, version
+    Example:
+
+    
+    {
+      "command": "intellifs-restore",
+      "arguments": {
+        "path": "example.js",
+        "version": "1234567890"
+      }
+    }
 
 javascript
 // Initial Write
