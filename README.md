@@ -20,8 +20,29 @@ Installation
 
     Clone the Repository
 
-git clone https://github.com/yourusername/intellifs.git
-cd intellifs
+Installation Instructions
+
+Prerequisites
+
+    Node.js: Ensure you have Node.js installed (version 14 or higher). You can download it from Node.js Official Website.
+
+Installing Required NPM Packages
+
+Open your terminal or command prompt and navigate to your project directory. Then, run the following command to install the required packages:
+
+npm install @modelcontextprotocol/sdk ajv glob
+
+copy the file intellifs.js and place it in your preferred MCP server location on your PC. Note the location
+
+Running IntelliFS Server
+
+    Save the IntelliFS Server code above as intellifs.js in your desired directory (e.g., E:\Artificial Intelligence\MCP\servers\intellifs.js).
+
+    Update the Allowed Directories as per your needs. These are passed as command-line arguments when starting the server.
+
+    Start the Server by running:
+
+
 
 Install Dependencies
 
