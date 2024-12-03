@@ -1,0 +1,14 @@
+{
+  "name": "intellifs",
+  "version": "1.0.0",
+  "main": "intellifs.js",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1",
+    "ajv": "^8.17.1",
+    "glob": "^11.0.0"
+  },
+  "author": "axs1553",
+  "license": "MIT",
+  "description": "An intelligent filesystem server for Claude Desktop that adds targeted code patching & file versioning"
+}
